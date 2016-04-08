@@ -11,7 +11,7 @@ More details.
 """
 from __future__ import division
 
-import os, pickle
+import os, pickle, inspect
 
 import numpy as np
 import scipy as sp
@@ -222,7 +222,8 @@ class Pupil_SSVEP_Session(object):
 				h5_file.put("/%s/tf/cycles_%s_%s"%(self.file_alias, nr_cycles, name), opd)
 
 	def read_trans_counts(self):
-		tcs = pd.read_csv('/Users/knapen/Documents/grants/NWO-CAS_2016/supporting_pilot_exp/analysis/number_of_percepts.txt')
+		tc_file = os.path.join(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))), 'number_of_percepts.txt')
+		tcs = pd.read_csv(tc_file)
 		if self.file_alias in list(tcs):
 			self.trans_counts = np.array(tcs[self.file_alias])
 
